@@ -6,9 +6,9 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'Verify',
+  title: 'Veryfi',
 
-  projectId: 'wxka69jv',
+  projectId: 'rm2bmzqf',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

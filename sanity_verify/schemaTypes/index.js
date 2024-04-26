@@ -1,5 +1,6 @@
 import banner from "./banner";
-import product from "./product";
-import { smartphone } from "./smartphone";
+import { phone } from "./phone";
+import assets from "./assets";
+import { samsung } from "./samsung";
 
-export const schemaTypes = [product, banner, smartphone]
+export const schemaTypes = [assets, banner, phone, samsung]

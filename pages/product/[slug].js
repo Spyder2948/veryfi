@@ -1,70 +1,158 @@
-import React, { useState } from 'react'
-import { client } from '@/lib/client.mjs';
-import {AiOutlineMinus, AiOutlinePlus, AiOutlineStar, AiFillStar} from 'react-icons/ai';
+import React, { useState, useRef, useEffect } from 'react'
+import { client, urlFor } from '@/lib/client.mjs';
+import { FcNext, FcPrevious } from 'react-icons/fc';
 import { Product } from '@/components';
 import Review from '@/components/Review';
 import Star from '@/components/star';
+import { useStateContext, StateContext } from '@/context/StateContext';
+import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
+import { Toaster } from 'react-hot-toast';
+import { IoHeartCircleOutline } from "react-icons/io5";
+import { AiFillAmazonCircle } from "react-icons/ai";
+import { SiFlipkart } from "react-icons/si";
+import { TbBrandCoinbase } from "react-icons/tb";
+import ProductLayout from '@/components/ProductLayout';
+import { TbBrandSamsungpass } from "react-icons/tb";
 
 const ProductDetails = ({product, products}) => {
 
- const {frontImageLink, productName, simType, processor, memory, battery, display, camera, memoryCard, version, backImageLink, amazon, flipkart, croma} = product;
- const [index, setIndex] = useState(0);
+ const {productName, features, image, amazon, flipkart, croma, rating, reviews, samsung, links} = product;
+//  const [index, setIndex] = useState(0);
+ const { qty, onAdd} = useStateContext();
+//  const curIndex = index;
+
+
+ const maxScrollWidth = useRef(0);
+ const [currentIndex, setCurrentIndex] = useState(0);
+ const carousel = useRef(null);
+ const [initialImages, setInitialImages] = useState([]);
+
+ useEffect(() => {
+    setInitialImages(image.slice(0, 4));
+}, [image]);
+
+const nextImage = () => {
+    if (currentIndex < image.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+    } else {
+        setCurrentIndex(0);
+    }
+    updateInitialImages();
+};
+
+const prevImage = () => {
+    if (currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+    } else {
+        setCurrentIndex(image.length - 1);
+    }
+    updateInitialImages();
+};
+
+const updateInitialImages = () => {
+    let startIndex = currentIndex > image.length - 4 ? image.length - 4 : currentIndex;
+    if (startIndex === image.length - 4) {
+        startIndex = image.length - 4;
+    }
+    setInitialImages(image.slice(startIndex, startIndex + 4));
+};
+
+useEffect(() => {
+    if (carousel !== null && carousel.current !== null) {
+        carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
+    }
+}, [currentIndex]);
+
+useEffect(() => {
+    maxScrollWidth.current = carousel.current
+        ? carousel.current.scrollWidth - carousel.current.offsetWidth
+        : 0;
+}, []);
+
+const isDisabled = (direction) => {
+    if (direction === 'prev') {
+        return currentIndex <= 0;
+    }
+
+    if (direction === 'next' && carousel.current !== null) {
+        return (
+            carousel.current.offsetWidth * currentIndex >= maxScrollWidth.current ||
+            currentIndex >= image.length - 1
+        );
+    }
+
+    return false;
+};
+
+const handleImageClick = (index) => {
+    setCurrentIndex(index);
+};
+
+
+
  return (
-    <div>
+    <>
          <div className='product-detail-container'>
             <div className='carousel-container'>
+
                 <div className='image-container'>
-                    <img src={frontImageLink} alt="smartphone" className='product-detail-image' />
+
+                    <button onClick={prevImage} disabled={isDisabled('prev')} className='prev-btn'> <FcPrevious size={15}/> </button>
+                        <img src={image[currentIndex].includes('www.smartprix.com') ? `/api/image?url=${encodeURIComponent(image[currentIndex])}` : image[currentIndex]}
+                        alt="smartphone" id='main-image' className='product-detail-image' />
+                        <div className='wishlist'>
+                            <IoHeartCircleOutline className='wishlist-icon' onClick={() => onAdd(product, qty)}/>
+                        </div>
+                    <button onClick={nextImage} disabled={isDisabled('next')} className='prev-btn'> <FcNext size={15}/> </button>
 
                 </div>
+
                 <div className='small-images-container'>
-                        <img src="https://cdn1.smartprix.com/rx-iDOkC3zRl-w204-h420/apple-iphone-13.webp" alt="smartphone" className='small-image'/>
-                </div>
-                {/* <div className='small-images-container'>
-                {image?.map((item, i) => (
-                    <img src='{urlFor(item)}' className='' onMouseEnter='' />
-                                         ))
-                }
 
-                </div> */}
+                    {initialImages.map((img, key) => (
+                            <img key={key} src={img.includes('www.smartprix.com') ? `/api/image?url=${encodeURIComponent(img)}` : img} alt='smartphone'
+                            className={`small-image ${key === currentIndex ? 'active' : ''}`} onClick={() => handleImageClick(key)}
+                            />
+                    ))}
+
+                </div>
             </div>
 
+
             <div className='product-detail-desc'>
-                <h1>{productName}</h1>
+                <h1 className='product-header'>{productName}</h1>
                 <div className='reviews'>
                     <div className="rating">
                         <Star />
-                        <span className="rating-value">4.8</span>
+                        <span className="rating-value">{rating}</span>
                     </div>
                     <div className="review-count">
                         <Review />
-                        <span className="review-count-value">67 Reviews</span>
+                        <span className="review-count-value">{reviews}</span>
                     </div>
+                    {/* <div className='wishlist'>
+                        <IoHeartCircleOutline className='wishlist-icon'/>
+                    </div> */}
                 </div>
-                    <h4>Highlights: </h4>
+                    <h4>Features: </h4>
 
                        <ul>
-                            <li className="list-items"> <span className='list-items-header'> Sim&nbsp;: </span>  &nbsp;{simType}</li>
-                            <li className="list-items"> <span className='list-items-header'> Processor&nbsp;: </span>  &nbsp;{processor}</li>
-                            <li className="list-items"> <span className='list-items-header'> Display&nbsp;: </span>  &nbsp;{display}</li>
-                            <li className="list-items"> <span className='list-items-header'> Camera&nbsp;: </span>  &nbsp;{camera}</li>
-                            <li className="list-items"> <span className='list-items-header'> Memory Card Support&nbsp;: </span>  &nbsp;{memoryCard}</li>
-                            <li className="list-items"> <span className='list-items-header'> Version&nbsp;: </span>  &nbsp;{version}</li>
-                            <li className="list-items"> <span className='list-items-header'> Storage&nbsp;: </span>  &nbsp;{memory} </li>
-                            <li className="list-items"> <span className='list-items-header'> Battery&nbsp;: </span>  &nbsp;{battery}</li>
+                            {features.map((item, key) => (
+                                <li className="list-items" key={key}> {item}</li>
+                            ))}
+
                        </ul>
 
 
-                    <div className='price'>
-                        <button type="submit" className='price-button'>Amazon <span> &#8377;{amazon} </span> </button>
-                        <button type="submit" className='price-button'>Flipkart <span> &#8377;{flipkart} </span> </button>
-                        <button type="submit" className='price-button'>Croma <span> &#8377;{croma} </span> </button>
-                    </div>
+                    <div className='price-container'>
+                        {samsung?.length > 1 ?
+                        <a href={links?.length > 0 ? links[0]: ""} className='price-button'> <TbBrandSamsungpass /> Samsung <span className='price-rate'> &#8377;{samsung[3]} </span>  </a>
+                         : ""}
 
-                    <div className='buttons'>
-                        <button type='button' className='add-to-cart' onClick="">Compare Now</button>
-                        <button type='button' className='buy-now' onClick="">Wishlist</button>
-                        <button type='button' className='buy-now' onClick="">Buy Now</button>
+                        <a href={links?.length > 0 ? links[2]: ""} className='price-button'> <AiFillAmazonCircle size={22}/> Amazon <span className='price-rate'> &#8377;{amazon[3]} </span> </a>
+                        <a href={links?.length > 0 ? links[3]: ""} className='price-button'> <SiFlipkart /> Flipkart <span className='price-rate'> &#8377;{flipkart[3]} </span> </a>
+                        <a href={links?.length > 0 ? links[1]: ""} className='price-button'> <TbBrandCoinbase className='croma-brand'/> Croma <span className='price-rate'> &#8377;{croma[3]} </span> </a>
                     </div>
 
                 </div>
@@ -86,12 +174,28 @@ const ProductDetails = ({product, products}) => {
 
             </div>
 
-        </div>
+        </>
   )
 }
 
+ProductDetails.getLayout = (page) => {
+    return <ClerkProvider
+            appearance={{
+              baseTheme: dark,
+              fontFamily: "__Fira_Sans_505ce6, __Fira_Sans_Fallback_505ce6",
+            }}
+            >
+            <StateContext>
+                <ProductLayout>
+                <Toaster />
+                  {page}
+                </ProductLayout>
+            </StateContext>
+           </ClerkProvider>;
+  }
+
 export const getStaticPaths = async () => {
-    const query = `*[_type == "smartphone"]{
+    const query = `*[_type == "phone"]{
         slug{
             current
         }
@@ -110,8 +214,8 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params: { slug } }) => {
-    const query = `*[_type == "smartphone" && slug.current == '${slug}'][0]`;
-    const productsQuery = '*[_type == "smartphone"]';
+    const query = `*[_type in ["phone", "samsung"] && slug.current == '${slug}'][0]`;
+    const productsQuery = '*[_type in ["phone", "samsung"]][0...10]';
     const product = await client.fetch(query);
     const products = await client.fetch(productsQuery);
 

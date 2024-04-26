@@ -9,8 +9,7 @@ const fira = Fira_Sans({
   weight: ['400','700']
 });
 
-const Layout = ({ children }) => {
-
+const ProductLayout = ({ children }) => {
   return (
 
     <div className={fira.className}>
@@ -21,10 +20,10 @@ const Layout = ({ children }) => {
         </Head>
 
         <header>
-            <Navbar/>
+            <Navbar />
         </header>
 
-        <main className='main-container'>
+        <main className='single-product-container'>
             {children}
         </main>
 
@@ -37,4 +36,4 @@ const Layout = ({ children }) => {
   )
 }
 
-export default Layout
+export default ProductLayout;
