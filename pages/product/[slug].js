@@ -3,7 +3,7 @@ import { client, urlFor } from '@/lib/client.mjs';
 import { FcNext, FcPrevious } from 'react-icons/fc';
 import { Product } from '@/components';
 import Review from '@/components/Review';
-import Star from '@/components/star';
+import Star from '@/components/Star';
 import { useStateContext, StateContext } from '@/context/StateContext';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
