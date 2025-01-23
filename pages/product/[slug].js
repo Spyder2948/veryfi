@@ -14,6 +14,7 @@ import { SiFlipkart } from "react-icons/si";
 import { TbBrandCoinbase } from "react-icons/tb";
 import ProductLayout from '@/components/ProductLayout';
 import { TbBrandSamsungpass } from "react-icons/tb";
+import Graph from '@/components/Graph';
 
 const ProductDetails = ({product, products}) => {
 
@@ -147,16 +148,27 @@ const handleImageClick = (index) => {
 
                     <div className='price-container'>
                         {samsung?.length > 1 ?
-                        <a href={links?.length > 0 ? links[0]: ""} className='price-button'> <TbBrandSamsungpass /> Samsung <span className='price-rate'> &#8377;{samsung[3]} </span>  </a>
+                        <a href={links?.length > 3 ? links[0]: ""} className='price-button'> <TbBrandSamsungpass />Samsung {samsung[3] === 0 ? <em className='out-of-stock'>Out of Stock </em> : <span className='price-rate'> &#8377;{samsung[3]} </span>} </a>
                          : ""}
 
-                        <a href={links?.length > 0 ? links[2]: ""} className='price-button'> <AiFillAmazonCircle size={22}/> Amazon <span className='price-rate'> &#8377;{amazon[3]} </span> </a>
-                        <a href={links?.length > 0 ? links[3]: ""} className='price-button'> <SiFlipkart /> Flipkart <span className='price-rate'> &#8377;{flipkart[3]} </span> </a>
-                        <a href={links?.length > 0 ? links[1]: ""} className='price-button'> <TbBrandCoinbase className='croma-brand'/> Croma <span className='price-rate'> &#8377;{croma[3]} </span> </a>
+                        {amazon?.length > 1 ?
+                        <a href={links?.length > 3 ? links[2]: links?.length > 2 ? links[0] : links[0]} className='price-button'> <AiFillAmazonCircle size={22}/> Amazon {amazon[3] === 0 ? <em className='out-of-stock'>Out of Stock </em> : <span className='price-rate'> &#8377;{amazon[3]} </span>}  </a>
+                        : ""}
+
+                        {flipkart?.length > 1 ?
+                        <a href={links?.length > 3 ? links[3]: links?.length > 2 ? links[2] : links[1]} className='price-button'> <SiFlipkart /> Flipkart {flipkart[3] === 0 ? <em className='out-of-stock'>Out of Stock </em> : <span className='price-rate'> &#8377;{flipkart[3]} </span>} </a>
+                        : ""}
+
+                        {croma?.length > 1 ?
+                        <a href={links?.length > 3 ? links[1]: links?.length > 2 ? links[1] : ""} className='price-button'> <TbBrandCoinbase className='croma-brand'/> Croma  {croma[3]  === 0 ? <em className='out-of-stock'>Out of Stock </em> : <span className='price-rate'> &#8377;{croma[3]} </span>}  </a>
+                        : ""}
+
                     </div>
 
                 </div>
 
+
+             <Graph product={product}/>
             </div>
 
 

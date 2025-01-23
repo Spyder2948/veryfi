@@ -1,14 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
-import { IoHeartCircleOutline } from "react-icons/io5";
 import { MdStarRate } from "react-icons/md";
 
-const Product = ({ product: { image, productName, slug, amazon, croma, flipkart, rating } }) => {
-  const prices = [amazon[amazon.length - 1], flipkart[flipkart.length - 1], croma[croma.length - 1]].filter(price => typeof price === 'number' && price !== 0);
+const Product = ({ product: { image, productName, slug, amazon, croma, samsung, flipkart, rating, lowestPrice } }) => {
+  const prices = [amazon?.[amazon?.length - 1],
+                  flipkart?.[flipkart?.length - 1],
+                  croma?.[croma?.length - 1],
+                   samsung?.[samsung?.length - 1],
+                ].filter(price => typeof price === 'number' && price !== 0);
+
 
   if(prices.length > 0)
   {
-    const price = Math.min(...prices);
+    let price = Math.min(...prices);
+
+    if(lowestPrice > 0)
+    {
+      price = lowestPrice;
+    }
 
     return (
       <div className="product-card">
@@ -31,10 +40,7 @@ const Product = ({ product: { image, productName, slug, amazon, croma, flipkart,
               </div>
               <div className="product-price">&#8377;{price}</div>
             </div>
-            {/* <div className="product-rating">
-              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e286e0ad475faafe1677fad535632ed04adb2899fb47e9cd8f29d74dc9046588?apiKey=f3740fe9b8ab4dd7a5e84241647030b4&" alt="Star rating" className="rating-stars" />
-              <div className="rating-count">({product.rating})</div>
-            </div> */}
+
             <div className="product-actions">
               <button className="add-to-cart-btn">View Details</button>
               <button className="add-to-shortlist-btn">Compare Now</button>

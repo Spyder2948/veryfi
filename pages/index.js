@@ -42,9 +42,38 @@ export default function HomePage({ herosectionData }) {
            </div>
 
            <div className='Brands-container'>
-              {herosectionData[1].image?.map((img, index) => (
-                    <img key={index} src={urlFor(img)} className='brand-img' alt="brand images" />
-              ))}
+
+            <a href="http://localhost:3000/search?query=apple" >
+              <img src={urlFor(herosectionData[1].image[0])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=samsung">
+              <img src={urlFor(herosectionData[1].image[1])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=google">
+              <img src={urlFor(herosectionData[1].image[2])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=motorola">
+              <img src={urlFor(herosectionData[1].image[3])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=oneplus">
+              <img src={urlFor(herosectionData[1].image[4])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=xiaomi">
+              <img src={urlFor(herosectionData[1].image[5])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=realme">
+              <img src={urlFor(herosectionData[1].image[6])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=oppo">
+              <img src={urlFor(herosectionData[1].image[7])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=vivo">
+              <img src={urlFor(herosectionData[1].image[8])} className='brand-img' alt="brand images" />
+            </a>
+            <a href="http://localhost:3000/search?query=nothing">
+              <img src={urlFor(herosectionData[1].image[9])} className='brand-img' alt="brand images" />
+            </a>
+
            </div>
         </div>
 

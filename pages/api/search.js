@@ -6,7 +6,7 @@ export default async function search(req, res) {
 
 
   const searchQuery = `*[_type in ["phone", "samsung"] && ( productName match $queryString + '*' || brand match $queryString + '*' || features match $queryString + '*')]
-        | order(_createdAt desc)[0...20]`;
+        | order(_createdAt desc)`;
 
   const data = await client.fetch(searchQuery, {
     queryString: query,
