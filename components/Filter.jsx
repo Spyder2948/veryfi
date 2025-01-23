@@ -1,6 +1,11 @@
 import React from 'react';
 import Accordion from './Accordion';
+import { Fira_Sans } from 'next/font/google';
 
+const fira = Fira_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800']
+});
 
 const Filter = () => {
     // const [checkedOne, setCheckedOne] = React.useState(false);
@@ -48,10 +53,10 @@ const Filter = () => {
     return (
     <>
     <div>
-      <ul className='brands-filter'>
+      <ul className={`${fira.className} brand-filter`}>
         {BRANDS.map((brand) => (
           <li key={brand.name}>
-           <button type='button' disabled={!brand.selected} className='brand-btn'> {brand.name} </button>
+           <button type='button' disabled={!brand.selected} className={`${fira.className} brand-btn`}> {brand.name} </button>
           </li>
         ))}
 

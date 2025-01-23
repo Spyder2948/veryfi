@@ -165,7 +165,7 @@ Home.getLayout = (page) => {
   return <ClerkProvider
           appearance={{
             baseTheme: dark,
-            fontFamily: "__Fira_Sans_505ce6, __Fira_Sans_Fallback_505ce6",
+            // fontFamily: "__Fira_Sans_505ce6, __Fira_Sans_Fallback_505ce6",
           }}
           >
           <StateContext>

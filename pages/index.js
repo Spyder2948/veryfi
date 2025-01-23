@@ -36,7 +36,7 @@ export default function HomePage({ herosectionData }) {
         </div>
 
         <div className='Brands-Section'>
-           <div className='Brands-Title'>Brands
+           <div className={`${sati.className} Brands-Title`}>Brands
             {/* {herosectionData.length && (<img src={urlFor(herosectionData[2].image[0])} className='text-svg' alt="text underline on hover" />)} */}
 
            </div>
@@ -78,7 +78,7 @@ export default function HomePage({ herosectionData }) {
         </div>
 
         <div className='Features-Section'>
-          <div className='Feature-Title'>Our Features</div>
+          <div className={`${sati.className} Feature-Title`}>Our Features</div>
 
           <div className='Features-Container'>
               <div className='feature-cards'>

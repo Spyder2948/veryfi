@@ -21,7 +21,7 @@ const HomeLayout = ({children}) => {
   return (
     <>
     <div className={fira.className}>
-
+      <div className='layout'>
       <Head>
           <title>Veryfi</title>
       </Head>
@@ -31,7 +31,7 @@ const HomeLayout = ({children}) => {
         <div className="verify_container">
             <a href='/' className='sign-up-hidden'>Shop Now</a>
 
-            <a className={enco.className} href="/">VERYFI </a>
+            <a className={`${enco.className} logo`} href="/">VERYFI </a>
 
             <a href='/shop' className='sign-up-button'>Shop Now</a>
         </div>
@@ -52,7 +52,7 @@ const HomeLayout = ({children}) => {
         </path>
       </svg>
 
-      <div className='Footer-Section'>
+      <div className={`${fira.className} Footer-Section`}>
 
               <div className='sub-footer-section'>
                   <div className='contact-form'>Contact-form</div>
@@ -88,7 +88,7 @@ const HomeLayout = ({children}) => {
               </div>
 
       </div>
-      <div className='homepage-footer'>
+      <div className={`${fira.className} homepage-footer`}>
                 <p>2024 Veryfi All rights reserved</p>
                 <p className='icons'>
                   <AiFillInstagram className='social-icons'/>
@@ -99,7 +99,7 @@ const HomeLayout = ({children}) => {
 
       </footer>
 
-
+      </div>
     </div>
 
       </>

@@ -55,7 +55,7 @@ const Navbar = () => {
   return (
     <div className='navbar-container'>
 
-        <Link className={enco.className} href="/shop">VERYFI </Link>
+        <Link className={`${enco.className} logo`} href="/shop">VERYFI </Link>
 
        <SearchInput
        value={searchString}

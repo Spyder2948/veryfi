@@ -369,7 +369,7 @@ a.__className_e811d1{
     /* font-weight: 600; */
     color: #1a1a1a;
     margin-bottom: 12px;
-    font-family: '__Kalam_864180', '__Kalam_Fallback_864180';
+    /* font-family: '__Kalam_864180', '__Kalam_Fallback_864180'; */
     font-weight: 700;
    }
 
@@ -420,7 +420,7 @@ a.__className_e811d1{
     font-size: 35px;
     color: #1a1a1a;
     font-weight: 700;
-    font-family: '__Kalam_864180', '__Kalam_Fallback_864180';
+    /* font-family: '__Kalam_864180', '__Kalam_Fallback_864180'; */
    }
 
    .wave-svg {
@@ -502,7 +502,7 @@ a.__className_e811d1{
   background-color: #1a1a1a;
   background-image: linear-gradient(310deg, #1a1a1a 0%, #333333 20%, #1a1a1a 44%, #333333 100%);
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -667,6 +667,7 @@ a.__className_e811d1{
     -webkit-text-stroke: 1px #f02d34;
     margin-left: 6px;
 }
+
 .logo{
   color: #f7f7f7;
   font-size: 75px;
@@ -879,7 +880,7 @@ color: #ebebeb;
 .accordion-title{
   color: #DD6220;
   font-size: 20px;
-  font-family: '__Kalam_864180', '__Kalam_Fallback_864180';
+  /* font-family: '__Kalam_864180', '__Kalam_Fallback_864180'; */
   font-weight: 700;
   width: 100%;
   display: flex;
@@ -894,7 +895,7 @@ color: #ebebeb;
 .accordion-content{
   color: #cdcdcd;
   font-size: 8px;
-  font-family: '__Fira_Sans_505ce6', '__Fira_Sans_Fallback_505ce6';
+  /* font-family: '__Fira_Sans_505ce6', '__Fira_Sans_Fallback_505ce6'; */
   font-weight: 400;
   font-style: normal;
   width: 100%;
