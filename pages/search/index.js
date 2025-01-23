@@ -4,7 +4,7 @@ import { StateContext, useStateContext } from '@/context/StateContext';
 import { Toaster } from 'react-hot-toast';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
-import Lottie from 'lottie-react';
+// import Lottie from 'lottie-react';
 import gif from '../../productNotFound.json';
 import { Kalam } from 'next/font/google';
 import { client } from '@/lib/client.mjs';
@@ -13,6 +13,9 @@ import Accordion from '@/components/Accordion';
 import PriceAccordion from '@/components/PriceAccordion';
 import { usePagination } from '@mantine/hooks';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const sati = Kalam({
   subsets: ['latin'],
